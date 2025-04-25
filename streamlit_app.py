@@ -88,7 +88,6 @@ else:
 
 # TODO:
 #  write tests for a stock event sheet
-#  validate that secrets.toml won't actually get to github before creating this repo
 #  upload to Streamlit Cloud
 #  upload to nacki.app ... do i even know how to do that?
 
