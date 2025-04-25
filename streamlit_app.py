@@ -4,7 +4,7 @@ import gspread
 import pandas as pd
 import streamlit as st
 
-from config import TODAY
+from config import TODAY, NOW
 from event_sheet import EventSheets, create_event_sheets
 
 RUN_EVERY_X_MINUTES = 4
@@ -75,7 +75,7 @@ def run():
                                 })
 
 
-st.session_state['last_refresh'] = datetime.now()
+st.session_state['last_refresh'] = NOW
 
 if not st.experimental_user.is_logged_in:
     if st.button("Authenticate via Google"):

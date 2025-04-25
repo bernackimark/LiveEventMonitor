@@ -4,7 +4,7 @@ from datetime import date, datetime
 import pandas as pd
 import pytz
 
-from config import EventStatus, REG_Q_CNT, TIMEZONE
+from config import EventStatus, REG_Q_CNT, localize_utc
 from google_drive import GoogleSheetData, get_google_sheet_event_data
 
 @dataclass
@@ -96,10 +96,8 @@ class EventSheet:
 
     @property
     def lmt(self) -> datetime:
-        utc_time = datetime.strptime(self.lmt_str, "%Y-%m-%dT%H:%M:%S.%fZ")
-        utc_time = pytz.utc.localize(utc_time)
-        tz = pytz.timezone(TIMEZONE)
-        return utc_time.astimezone(tz)
+        utc_dt = datetime.strptime(self.lmt_str, "%Y-%m-%dT%H:%M:%S.%fZ")
+        return localize_utc(utc_dt)
 
 
 @dataclass
