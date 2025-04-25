@@ -3,6 +3,7 @@ from enum import StrEnum
 import os
 
 from dotenv import load_dotenv  # pip install python-dotenv
+import streamlit as st
 
 load_dotenv()
 
@@ -17,7 +18,7 @@ class SheetName(StrEnum):
 
 
 EVENTS_FOLDER_ID = os.getenv('EVENTS_FOLDER_ID')
-GOOGLE_TOKEN = os.getenv("GOOGLE_TOKEN")
+GOOGLE_TOKEN = st.secrets['google_token']['GOOGLE_TOKEN']
 REG_Q_CNT = 20
 TIMEZONE = 'US/Eastern'
 TODAY = date.today()
