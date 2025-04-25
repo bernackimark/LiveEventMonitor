@@ -2,6 +2,6 @@
 testing*
 *.env
 *.csv
-**/.streamlit/*
+.streamlit/*
 *.xml
 *.iml
