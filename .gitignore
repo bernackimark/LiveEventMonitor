@@ -1,0 +1,7 @@
+*.json
+testing*
+*.env
+*.csv
+**/.streamlit/*
+*.xml
+*.iml
