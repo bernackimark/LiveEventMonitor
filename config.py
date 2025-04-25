@@ -1,11 +1,11 @@
 from datetime import date, timedelta
 from enum import StrEnum
-import os
+# import os
 
-from dotenv import load_dotenv  # pip install python-dotenv
+# from dotenv import load_dotenv  # pip install python-dotenv
 import streamlit as st
 
-load_dotenv()
+# load_dotenv()
 
 class EventStatus(StrEnum):
     NOT_STARTED = 'Not Started'
@@ -17,7 +17,7 @@ class SheetName(StrEnum):
     QUESTIONS = 'Questions'
 
 
-EVENTS_FOLDER_ID = os.getenv('EVENTS_FOLDER_ID')
+EVENTS_FOLDER_ID = st.secrets['google_drive']['EVENTS_FOLDER_ID']
 GOOGLE_TOKEN = st.secrets['google_token']['GOOGLE_TOKEN']
 REG_Q_CNT = 20
 TIMEZONE = 'US/Eastern'
