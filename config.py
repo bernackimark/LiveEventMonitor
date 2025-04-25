@@ -32,6 +32,6 @@ GOOGLE_TOKEN = st.secrets['google_token']['GOOGLE_TOKEN']
 
 REG_Q_CNT = 20
 
-NOW = localize_utc(datetime.utcnow())
+NOW = localize_utc(datetime.now(pytz.utc))
 TODAY = NOW.date()
 YESTERDAY = TODAY - timedelta(1)
