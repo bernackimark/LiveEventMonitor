@@ -29,7 +29,8 @@ def get_creds() -> Credentials:
             except RefreshError:
                 # If no valid credentials, run OAuth flow to get new credentials
                 flow = InstalledAppFlow.from_client_secrets_file(str(CLIENT_SECRET_FILE), SCOPES)
-                creds = flow.run_local_server(port=0)  # Starts the local server and opens browser for authentication
+                # creds = flow.run_local_server(port=0)  # Starts the local server and opens browser for authentication
+                creds = flow.run_console()  # since Streamlit can't open a browser for auth, need use run_console()
 
         # Save the credentials to token.json for future use
         with TOKEN_FILE.open('w') as token:
