@@ -9,7 +9,8 @@ from event_sheet import EventSheets, create_event_sheets
 
 RUN_EVERY_X_MINUTES = 4
 
-st.set_page_config(layout="wide")
+st.set_page_config(layout="wide",
+                   page_title='Live Event Monitor', page_icon='https://whattrivia.com/favicon.ico')
 
 def get_data(e_date: date) -> EventSheets:
     try:
