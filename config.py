@@ -1,12 +1,12 @@
 from datetime import date, datetime, timedelta
 from enum import StrEnum
-# import os
+import os
 
-# from dotenv import load_dotenv  # pip install python-dotenv
+from dotenv import load_dotenv  # pip install python-dotenv
 import pytz
 import streamlit as st
 
-# load_dotenv()
+load_dotenv()
 
 class EventStatus(StrEnum):
     NOT_STARTED = 'Not Started'
@@ -27,6 +27,7 @@ def localize_utc(utc_dt: datetime, timezone_str: str = TIMEZONE) -> datetime:
     return utc_dt.astimezone(target_tz)
 
 
+CONN_STR_UNPACKED = os.getenv('CONN_STR')
 EVENTS_FOLDER_ID = st.secrets['google_drive']['EVENTS_FOLDER_ID']
 GOOGLE_TOKEN = st.secrets['google_token']['GOOGLE_TOKEN']
 
