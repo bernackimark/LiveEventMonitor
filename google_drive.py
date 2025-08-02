@@ -7,7 +7,7 @@ import gspread
 import pandas as pd
 
 
-from auth import get_creds
+from auth_google_drive import get_creds
 from config import EVENTS_FOLDER_ID, SheetName
 
 
