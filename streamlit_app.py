@@ -1,9 +1,10 @@
-from datetime import date, datetime, timedelta
+from datetime import date, timedelta
 
 import gspread
 import pandas as pd
 import streamlit as st
 
+from auth_simple_st import login, logout, require_login
 from config import TODAY, NOW
 from event_sheet import EventSheets, create_event_sheets
 
@@ -18,6 +19,11 @@ def get_data(e_date: date) -> EventSheets:
     except gspread.exceptions.APIError:
         st.warning("Whoa, hey, slow down there, partner. I can only refresh once per minute.")
         st.stop()
+    except Exception as e:
+        st.write(e)
+        st.error("Something broke accessing the sheets in Google Drive. Please report to Bernacki. God speed.")
+        st.stop()
+
 
 def create_dashboard_df(event_sheets: EventSheets) -> pd.DataFrame:
     events = []
@@ -33,16 +39,18 @@ def create_dashboard_df(event_sheets: EventSheets) -> pd.DataFrame:
     return my_df
 
 
+@require_login
 @st.fragment(run_every=f"{RUN_EVERY_X_MINUTES}m")  # run every 4 minutes
 def run():
-    col1, col2, col3, col4 = st.columns([1, 1, 1, 1], vertical_alignment='bottom')
+    col1, col2, col3, col4 = st.columns([2, 2, 2, 1], vertical_alignment='bottom')
     col1.header("Live Event Monitor")
     event_date: date = col2.date_input('Event Date', value=TODAY)
 
     next_refresh = st.session_state['last_refresh'] + timedelta(minutes=RUN_EVERY_X_MINUTES + 1)
     col3.write(f"The data will auto-refresh at {next_refresh.strftime('%I:%M%p')}")
 
-    col4.image(st.experimental_user.picture, width=50)
+    with col4:
+        logout()
 
     with st.spinner("Cooking ..."):
         es = get_data(event_date)
@@ -78,13 +86,9 @@ def run():
 
 st.session_state['last_refresh'] = NOW
 
-if not st.experimental_user.is_logged_in:
-    if st.button("Authenticate via Google"):
-        st.login('google')
-else:
-    if st.button("Logout"):
-        st.logout()
-    run()
+
+if __name__ == "__main__":
+    run() if st.session_state.get("is_credentialed") else login()
 
 
 # TODO:
