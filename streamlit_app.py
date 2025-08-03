@@ -20,7 +20,6 @@ def get_data(e_date: date) -> EventSheets:
         st.warning("Whoa, hey, slow down there, partner. I can only refresh once per minute.")
         st.stop()
     except Exception as e:
-        st.write(e)
         st.error("Something broke accessing the sheets in Google Drive. Please report to Bernacki. God speed.")
         st.stop()
 
