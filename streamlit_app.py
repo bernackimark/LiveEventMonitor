@@ -8,7 +8,7 @@ from auth_simple_st import login, logout, require_login
 from config import TODAY, NOW
 from event_sheet import EventSheets, create_event_sheets
 
-RUN_EVERY_X_MINUTES = 4
+RUN_EVERY_X_MINUTES = 6
 
 st.set_page_config(layout="wide",
                    page_title='Live Event Monitor', page_icon='https://whattrivia.com/favicon.ico')
@@ -39,7 +39,7 @@ def create_dashboard_df(event_sheets: EventSheets) -> pd.DataFrame:
 
 
 @require_login
-@st.fragment(run_every=f"{RUN_EVERY_X_MINUTES}m")  # run every 4 minutes
+@st.fragment(run_every=f"{RUN_EVERY_X_MINUTES}m")
 def run():
     col1, col2, col3, col4 = st.columns([2, 2, 2, 1], vertical_alignment='bottom')
     col1.header("Live Event Monitor")
